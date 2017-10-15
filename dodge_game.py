@@ -13,6 +13,13 @@ white = (255,255,255)
 
 clock = pygame.time.Clock()
 crashed = False
+carImg = pygame.image.load('racecar.png')
+
+def car(x,y):
+    gameDisplay.blit(carImg, (x,y))
+
+x = (display_width * 0.45)
+y = (display_height * 0.8)
 
 while not crashed:
 
@@ -20,7 +27,8 @@ while not crashed:
         if event.type == pygame.quit:
             crashed = True
 
-        print(event)
+    gameDisplay.fill(white)
+    car(x,y)
 
     pygame.display.update()
     clock.tick(60)
