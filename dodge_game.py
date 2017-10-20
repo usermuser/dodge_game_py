@@ -1,6 +1,7 @@
 #:help vimrc-intro
 import pygame
 import time
+import random
 
 pygame.init()
 
@@ -18,6 +19,9 @@ pygame.display.set_caption('A bit Racey')
 clock = pygame.time.Clock()
 
 carImg = pygame.image.load('racecar.png')
+
+def things(thingx, thingy, thingw, thingh, color):
+    pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
 
 def car(x,y):
     gameDisplay.blit(carImg, (x,y))
@@ -47,6 +51,12 @@ def game_loop():
 
     x_change = 0
 
+    thing_startx = random.randrange(0, display_width)
+    thing_starty = -600
+    thing_speed = 7
+    thing_width = 100
+    thing_height = 100
+
     gameExit = False
 
     while not gameExit:
@@ -68,6 +78,10 @@ def game_loop():
         x += x_change
 
         gameDisplay.fill(white)
+
+        # things(thingx, thingy, thingw, thingh, color)
+        things(thing_startx, thing_starty, thing_width, thing_height, black)
+        thing_starty += thing_speed
         car(x,y)
 
         if x > display_width - car_width or x <0:
