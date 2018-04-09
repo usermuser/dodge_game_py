@@ -11,6 +11,8 @@ white = (255,255,255)
 red = (255,0,0)
 
 player_width = 50
+JUMP_POWER = 10
+GRAVITY = 1
 
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Dino Run')
