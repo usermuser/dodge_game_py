@@ -1,7 +1,15 @@
+#/usr/bin/python3
 #https://pythonprogramming.net/pygame-crashing-objects/?completed=/drawing-objects-pygame-tutorial/
+import os
 import pygame
 import time
 import random
+
+LOCAL = '/usr/bin/python3'
+os.environ['PATH'] += ':'
+os.environ['PATH'] += LOCAL
+print ('PATH = ' + os.environ['PATH'])
+
 
 pygame.init()
 
@@ -25,7 +33,6 @@ def things_dodged(count):
     text = font.render("Dodged: "+str(count), True, black)
     gameDisplay.blit(text,(0,0))
     
-
 def things(thingx, thingy, thingw, thingh, color):
     pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
 

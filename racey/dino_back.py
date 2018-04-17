@@ -1,10 +1,7 @@
-#!/usr/bin/python3
 #https://pythonprogramming.net/pygame-crashing-objects/?completed=/drawing-objects-pygame-tutorial/
 import pygame, time, random
 
 pygame.init()
-
-y_change = 0
 
 display_width = 500
 display_height = 400
@@ -13,9 +10,9 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 
-# player_width = 50
-# JUMP_POWER = 10
-# GRAVITY = 1
+player_width = 50
+JUMP_POWER = 10
+GRAVITY = 1
 
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Dino Run')
@@ -26,16 +23,13 @@ playerImg = pygame.image.load('dino.png')
 def playerPos(x,y):
     gameDisplay.blit(playerImg,(x,y))
 
-def jump():
-    y_change = -4
-    return y_change
-
 def gameLoop():
-    x = (display_width * 0.1)
-    y = (display_height * 0.8)
-
+    x = (display_width * 0.5)
+    y = (display_height * 0.5)
+    print (x,y)
 
     y_change = 0
+
     gameExit = False
 
     while not gameExit:
@@ -49,31 +43,21 @@ def gameLoop():
                 if event.key == pygame.K_q:
                     gameExit = True
                     
-                if event.key == pygame.K_UP:
-                    y_change = jump()
-
-                if event.key == pygame.K_DOWN:
-                    y_change = 4
-                    # print('Down button pressed. y =', y, 'y_change =', y_change)
-
                 if event.key == pygame.K_SPACE:
-                    x = (display_width * 0.1)
-                    y = (display_height * 0.8)
+                    y_change = 4
 
-            if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE: # or event.key == pygame.K_RIGHT:
                         y_change = 0
 
-        y += y_change
+        y = y_change
 
         gameDisplay.fill(white)
 
         playerPos(x,y)
 
         pygame.display.update()
-        clock.tick(20)
-
-
+        clock.tick(60)
 
 gameLoop()
 pygame.quit()
