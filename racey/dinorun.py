@@ -71,10 +71,20 @@ def gameLoop():
         gameDisplay.fill(white)
 
         playerPos(x,y)
+        # pygame.draw.lines(gameDisplay, black, False, [(100,100), (150,200), (200,100)], 1)
         pygame.draw.lines(gameDisplay, black, False, [(100,100), (150,200), (200,100)], 1)
+        pygame.draw.line(gameDisplay, black, [display_width * 0.1, display_height * 0.8], [50,30], 5)
+
+        '''
+         pygame.draw.line()
+            draw a straight line segment
+            line(Surface, color, start_pos, end_pos, width=1) -> Rect
+
+            Draw a straight line segment on a Surface. There are no endcaps, the ends are squared off for thick lines.
+        '''
 
         pygame.display.update()
-        clock.tick(20)
+        clock.tick(60)
 
 
 
