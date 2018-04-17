@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 #https://pythonprogramming.net/pygame-crashing-objects/?completed=/drawing-objects-pygame-tutorial/
+#https://www.cs.ucsb.edu/~pconrad/cs5nm/topics/pygame/drawing/
+
 import pygame, time, random
 
 pygame.init()
@@ -69,6 +71,7 @@ def gameLoop():
         gameDisplay.fill(white)
 
         playerPos(x,y)
+        pygame.draw.lines(gameDisplay, black, False, [(100,100), (150,200), (200,100)], 1)
 
         pygame.display.update()
         clock.tick(20)
