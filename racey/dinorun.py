@@ -72,8 +72,8 @@ def gameLoop():
 
         playerPos(x,y)
         # pygame.draw.lines(gameDisplay, black, False, [(100,100), (150,200), (200,100)], 1)
-        pygame.draw.lines(gameDisplay, black, False, [(100,100), (150,200), (200,100)], 1)
-        pygame.draw.line(gameDisplay, black, [display_width * 0.1, display_height * 0.8], [50,30], 5)
+        pygame.draw.lines(gameDisplay, red, False, [(100,100), (150,200), (200,100)], 1)
+        pygame.draw.line(gameDisplay, black, [0, ((display_height * 0.8)+45)], [display_width, ((display_height * 0.8)+45)], 5)
 
         '''
          pygame.draw.line()
