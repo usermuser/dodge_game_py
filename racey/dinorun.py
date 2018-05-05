@@ -13,7 +13,11 @@ display_height = 400
 
 black = (0,0,0)
 white = (255,255,255)
-red = (255,0,0)
+red =   (255,0,0)
+blue =  (0,0,255)
+green = (0,255,0)
+
+ground = (display_height * 0.8) + 43
 
 # player_width = 50
 # JUMP_POWER = 10
@@ -31,6 +35,9 @@ def playerPos(x,y):
 def jump():
     y_change = -4
     return y_change
+
+def checkPlayerPos():
+    pass
 
 def gameLoop():
     x = (display_width * 0.1)
@@ -71,17 +78,7 @@ def gameLoop():
         gameDisplay.fill(white)
 
         playerPos(x,y)
-        # pygame.draw.lines(gameDisplay, black, False, [(100,100), (150,200), (200,100)], 1)
-        pygame.draw.lines(gameDisplay, red, False, [(100,100), (150,200), (200,100)], 1)
-        pygame.draw.line(gameDisplay, black, [0, ((display_height * 0.8)+45)], [display_width, ((display_height * 0.8)+45)], 5)
-
-        '''
-         pygame.draw.line()
-            draw a straight line segment
-            line(Surface, color, start_pos, end_pos, width=1) -> Rect
-
-            Draw a straight line segment on a Surface. There are no endcaps, the ends are squared off for thick lines.
-        '''
+        pygame.draw.line(gameDisplay, green, [0, ground], [display_width, ground], 5)
 
         pygame.display.update()
         clock.tick(60)
