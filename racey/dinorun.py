@@ -18,6 +18,8 @@ WIDTH = 22
 HEIGHT = 32
 COLOR =  "#888888"
 MOVE_SPEED = 7
+JUMP_POWER = 10
+GRAVITY = 0.35 # Сила, которая будет тянуть нас вниз
 
 # player_width = 50
 # JUMP_POWER = 10
@@ -28,19 +30,27 @@ MOVE_SPEED = 7
 # playerImg = pygame.image.load('dino.png')
 
 def main():
-    timer = pygame.time.Clock()
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY)
     pygame.display.set_caption('Dinorun')
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
     bg.fill(Color(BACKGROUND_COLOR))
+    timer = pygame.time.Clock()
+
 
 
     while True:
         timer.tick(60)
+        up = False
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
+
+            if e.type == KEYDOWN and e.key == K_UP:
+                up = True
+
+            if e.type == KEYUP and e.key == K_UP:
+                up = False
 
         screen.blit(bg, (0,0))
         hero = Dino(50, 200)  # создаем героя по (x,y) координатам
@@ -56,9 +66,20 @@ class Dino(sprite.Sprite):
         self.image = Surface((WIDTH, HEIGHT))
         self.image.fill(Color(COLOR))
         self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
+        self.yvel = 0  # скорость вертикального перемещения
+        self.onGround = False  # На земле ли я?
 
-    def update(self):
-        pass
+    def update(self, up):
+        if up:
+            if self.onGround:
+                self.yvel = -JUMP_POWER
+
+        if not self.onGround:
+            self.yvel += GRAVITY
+
+        self.onGround = False;  # Мы не знаем, когда мы на земле((
+        self.rect.y += self.yvel
+        self.rect.x += self.xvel
 
     def draw(self, screen):  # Выводим себя на экран
         screen.blit(self.image, (self.rect.x, self.rect.y))
