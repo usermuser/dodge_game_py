@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 #https://pythonprogramming.net/pygame-crashing-objects/?completed=/drawing-objects-pygame-tutorial/
 #https://www.cs.ucsb.edu/~pconrad/cs5nm/topics/pygame/drawing/
-
-import pygame, time, random
+from pygame import *
+import time, random
 
 pygame.init()
 
@@ -11,13 +11,14 @@ y_change = 0
 display_width = 500
 display_height = 400
 
-black = (0,0,0)
-white = (255,255,255)
-red =   (255,0,0)
-blue =  (0,0,255)
-green = (0,255,0)
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+RED =   (255,0,0)
+BLUE =  (0,0,255)
+GREEN = (0,255,0)
 
-ground = (display_height * 0.8) + 43
+GROUND = (display_height * 0.8) + 43
+WIDTH, HEIGHT = 22, 32
 
 # player_width = 50
 # JUMP_POWER = 10
@@ -36,8 +37,21 @@ def jump():
     y_change = -4
     return y_change
 
-def checkPlayerPos():
-    pass
+
+class Dino(sprite.Sprite):
+    def __init__(self, x, y):
+        self.startX = x
+        self.startY = y
+        self.xvel = 10
+        self.image = Surface((WIDTH, HEIGHT))
+
+    def update(self):
+        pass
+
+    def draw(self):
+        pass
+
+
 
 def gameLoop():
     x = (display_width * 0.1)
@@ -73,7 +87,7 @@ def gameLoop():
                     if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                         y_change = 0
 
-        y += y_change
+            y += y_change
 
         gameDisplay.fill(white)
 
