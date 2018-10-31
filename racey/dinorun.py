@@ -40,8 +40,9 @@ def main():
 
 
     while True:
-        timer.tick(60)
         up = False
+        timer.tick(60)
+
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
@@ -49,6 +50,7 @@ def main():
                 raise SystemExit
 
             if e.type == KEYDOWN and e.key == K_UP:
+                print('yep')
                 up = True
 
             if e.type == KEYUP and e.key == K_UP:
@@ -77,10 +79,10 @@ class Dino(sprite.Sprite):
             if self.onGround:
                 self.yvel = -JUMP_POWER
 
-        if not self.onGround:
-            self.yvel += GRAVITY
+            if not self.onGround:
+                self.yvel += GRAVITY
 
-        self.onGround = False;  # Мы не знаем, когда мы на земле((
+        self.onGround = False  # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
         self.rect.x += self.xvel
 
