@@ -3,7 +3,6 @@
 #https://www.cs.ucsb.edu/~pconrad/cs5nm/topics/pygame/drawing/
 import pygame
 from pygame import *
-import time, random
 
 WIN_WIDTH = 400 #Ширина создаваемого окна
 WIN_HEIGHT = 320 # Высота
@@ -15,7 +14,10 @@ RED =   (255,0,0)
 BLUE =  (0,0,255)
 GREEN = (0,255,0)
 GROUND = (WIN_HEIGHT * 0.8) + 43
-WIDTH, HEIGHT = 22, 32
+WIDTH = 22
+HEIGHT = 32
+COLOR =  "#888888"
+MOVE_SPEED = 7
 
 # player_width = 50
 # JUMP_POWER = 10
@@ -32,26 +34,31 @@ def main():
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
     bg.fill(Color(BACKGROUND_COLOR))
 
+
     while True:
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
         screen.blit(bg, (0,0))
+        hero = Dino(50, 200)  # создаем героя по (x,y) координатам
+        hero.draw(screen)
         pygame.display.update()
 
 class Dino(sprite.Sprite):
     def __init__(self, x, y):
+        super().__init__()
         self.startX = x
         self.startY = y
         self.xvel = 10
         self.image = Surface((WIDTH, HEIGHT))
-        self.pygame.image.load('dino.png')
+        self.image.fill(Color(COLOR))
+        self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
 
     def update(self):
         pass
 
-    def draw(self):
-        pass
+    def draw(self, screen):  # Выводим себя на экран
+        screen.blit(self.image, (self.rect.x, self.rect.y))
 
 
 if __name__ == '__main__':
