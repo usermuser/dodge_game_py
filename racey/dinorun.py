@@ -28,6 +28,7 @@ MOVE_SPEED = 7
 # playerImg = pygame.image.load('dino.png')
 
 def main():
+    timer = pygame.time.Clock()
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY)
     pygame.display.set_caption('Dinorun')
@@ -36,9 +37,11 @@ def main():
 
 
     while True:
+        timer.tick(60)
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
+
         screen.blit(bg, (0,0))
         hero = Dino(50, 200)  # создаем героя по (x,y) координатам
         hero.draw(screen)
