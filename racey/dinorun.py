@@ -5,10 +5,10 @@ import pygame
 from pygame import *
 import time, random
 
-WIN_WIDTH = 800 #Ширина создаваемого окна
-WIN_HEIGHT = 640 # Высота
+WIN_WIDTH = 400 #Ширина создаваемого окна
+WIN_HEIGHT = 320 # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT) # Группируем ширину и высоту в одну переменную
-BACKGROUND_COLOR = "#004400"
+BACKGROUND_COLOR = '#0639a8' # "#004400"
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED =   (255,0,0)
