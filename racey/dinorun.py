@@ -45,6 +45,8 @@ def main():
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
+            if e.type == KEYDOWN and e.key == K_q:
+                raise SystemExit
 
             if e.type == KEYDOWN and e.key == K_UP:
                 up = True
@@ -54,6 +56,7 @@ def main():
 
         screen.blit(bg, (0,0))
         hero = Dino(50, 200)  # создаем героя по (x,y) координатам
+        hero.update(up)  # передвижение
         hero.draw(screen)
         pygame.display.update()
 
