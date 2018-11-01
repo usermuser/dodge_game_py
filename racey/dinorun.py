@@ -21,6 +21,10 @@ MOVE_SPEED = 7
 JUMP_POWER = 10
 GRAVITY = 0.35 # Сила, которая будет тянуть нас вниз
 
+PLATFORM_WIDTH = 32
+PLATFORM_HEIGHT = 32
+PLATFORM_COLOR = "#FF6262"
+
 # player_width = 50
 # JUMP_POWER = 10
 # GRAVITY = 1
@@ -35,12 +39,14 @@ def main():
     pygame.display.set_caption('Dinorun')
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
     bg.fill(Color(BACKGROUND_COLOR))
+    hero = Dino(50, 200)  # создаем героя по (x,y) координатам
     timer = pygame.time.Clock()
+    up = False
 
 
 
     while True:
-        up = False
+
         timer.tick(60)
 
         for e in pygame.event.get():
@@ -57,7 +63,6 @@ def main():
                 up = False
 
         screen.blit(bg, (0,0))
-        hero = Dino(50, 200)  # создаем героя по (x,y) координатам
         hero.update(up)  # передвижение
         hero.draw(screen)
         pygame.display.update()
@@ -67,7 +72,7 @@ class Dino(sprite.Sprite):
         super().__init__()
         self.startX = x
         self.startY = y
-        self.xvel = 10
+        self.xvel = 0
         self.image = Surface((WIDTH, HEIGHT))
         self.image.fill(Color(COLOR))
         self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
@@ -88,6 +93,13 @@ class Dino(sprite.Sprite):
 
     def draw(self, screen):  # Выводим себя на экран
         screen.blit(self.image, (self.rect.x, self.rect.y))
+
+class Platform(sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        # self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
+        # self.image.fill(Color(PLATFORM_COLOR)
+        # self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
 if __name__ == '__main__':
