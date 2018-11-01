@@ -25,17 +25,11 @@ PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
 PLATFORM_COLOR = "#FF6262"
 
-# player_width = 50
-# JUMP_POWER = 10
-# GRAVITY = 1
-# gameDisplay = pygame.display.set_mode((display_width,display_height))
-# pygame.display.set_caption('Dino Run')
-# clock = pygame.time.Clock()
 # playerImg = pygame.image.load('dino.png')
 
 def main():
     pygame.init()
-    timer = pygame.time.Clock()
+
     screen = pygame.display.set_mode(DISPLAY)
     pygame.display.set_caption('Dinorun')
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
@@ -58,13 +52,21 @@ def main():
              '',
              '-----------------------------',
              '-----------------------------']
+    timer = pygame.time.Clock()
+    x = y = 0  # координаты
+    for row in level:  # вся строка
+        for col in row:  # каждый символ
+            if col == "-":
+                pf = Platform(x, y)  # создаем экземпляр класса Platform
+                entities.add(pf)  # добавляем его в группу спрайтов entities
+                platforms.append(pf)  # массив платформ
 
+            x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
+        y += PLATFORM_HEIGHT  # то же самое и с высотой
+        x = 0  # на каждой новой строчке начинаем с нуля
 
     while True:
-
         timer.tick(30)
-
-
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
@@ -73,26 +75,11 @@ def main():
 
             if e.type == KEYDOWN and e.key == K_UP:
                 up = True
-
             if e.type == KEYUP and e.key == K_UP:
                 up = False
 
-
-
         screen.blit(bg, (0,0))
-        x = y = 0  # координаты
-        for row in level:  # вся строка
-            for col in row:  # каждый символ
-                if col == "-":
-                    pf = Platform(x,y) # создаем экземпляр класса Platform
-                    entities.add(pf) # добавляем его в группу спрайтов entities
-                    platforms.append(pf) # массив платформ
-
-                x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
-            y += PLATFORM_HEIGHT  # то же самое и с высотой
-            x = 0  # на каждой новой строчке начинаем с нуля
         hero.update(up, platforms)  # передвижение
-        # hero.draw(screen) заменим на
         entities.draw(screen)
         pygame.display.update()
 
@@ -113,12 +100,13 @@ class Dino(sprite.Sprite):
         if up:
             if self.onGround:
                 print('dino is on the ground')
+
                 self.yvel = -JUMP_POWER
 
             if not self.onGround:
                 self.yvel += GRAVITY
 
-        # self.onGround = False  # Мы не знаем, когда мы на земле((
+        self.onGround = False  # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
         self.collide(0, self.yvel, platforms)
 
@@ -156,52 +144,3 @@ class Platform(sprite.Sprite):
 if __name__ == '__main__':
     main()
 
-# def gameLoop():
-#     x = (display_width * 0.1)
-#     y = (display_height * 0.8)
-#
-#
-#     y_change = 0
-#     gameExit = False
-#
-#     while not gameExit:
-#
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 pygame.quit()
-#                 quit()
-#
-#             if event.type == pygame.KEYDOWN:
-#                 if event.key == pygame.K_q:
-#                     gameExit = True
-#
-#                 if event.key == pygame.K_UP:
-#                     y_change = jump()
-#
-#                 if event.key == pygame.K_DOWN:
-#                     y_change = 4
-#                     # print('Down button pressed. y =', y, 'y_change =', y_change)
-#
-#                 if event.key == pygame.K_SPACE:
-#                     x = (display_width * 0.1)
-#                     y = (display_height * 0.8)
-#
-#             if event.type == pygame.KEYUP:
-#                     if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
-#                         y_change = 0
-#
-#             y += y_change
-#
-#         gameDisplay.fill(white)
-#
-#         playerPos(x,y)
-#         pygame.draw.line(gameDisplay, green, [0, ground], [display_width, ground], 5)
-#
-#         pygame.display.update()
-#         clock.tick(60)
-#
-#
-#
-# gameLoop()
-# pygame.quit()
-# quit()
