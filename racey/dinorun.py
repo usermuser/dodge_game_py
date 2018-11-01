@@ -35,19 +35,35 @@ PLATFORM_COLOR = "#FF6262"
 
 def main():
     pygame.init()
+    timer = pygame.time.Clock()
     screen = pygame.display.set_mode(DISPLAY)
     pygame.display.set_caption('Dinorun')
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
     bg.fill(Color(BACKGROUND_COLOR))
     hero = Dino(50, 200)  # создаем героя по (x,y) координатам
-    timer = pygame.time.Clock()
+
     up = False
 
+    entities = pygame.sprite.Group()  # Все объекты
+    platforms = []  # то, во что мы будем врезаться или опираться
+    entities.add(hero)
+
+    level = ['-----------------------------',
+             '',
+             '',
+             '',
+             '',
+             '',
+             '',
+             '',
+             '-----------------------------',
+             '-----------------------------']
 
 
     while True:
 
         timer.tick(60)
+
 
         for e in pygame.event.get():
             if e.type == QUIT:
@@ -62,10 +78,25 @@ def main():
             if e.type == KEYUP and e.key == K_UP:
                 up = False
 
+
+
         screen.blit(bg, (0,0))
+        x = y = 0  # координаты
+        for row in level:  # вся строка
+            for col in row:  # каждый символ
+                if col == "-":
+                    pf = Platform(x,y) # создаем экземпляр класса Platform
+                    entities.add(pf) # добавляем его в группу спрайтов entities
+                    platforms.append(pf) # массив платформ
+
+                x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
+            y += PLATFORM_HEIGHT  # то же самое и с высотой
+            x = 0  # на каждой новой строчке начинаем с нуля
         hero.update(up)  # передвижение
-        hero.draw(screen)
+        # hero.draw(screen) заменим на
+        entities.draw(screen)
         pygame.display.update()
+
 
 class Dino(sprite.Sprite):
     def __init__(self, x, y):
@@ -97,9 +128,9 @@ class Dino(sprite.Sprite):
 class Platform(sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        # self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        # self.image.fill(Color(PLATFORM_COLOR)
-        # self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
+        self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
+        self.image.fill(Color(PLATFORM_COLOR))
+        self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
 if __name__ == '__main__':
