@@ -103,7 +103,7 @@ class Dino(sprite.Sprite):
 
                 self.yvel = -JUMP_POWER
 
-            if not self.onGround:
+        if not self.onGround:
                 self.yvel += GRAVITY
 
         self.onGround = False  # Мы не знаем, когда мы на земле((
