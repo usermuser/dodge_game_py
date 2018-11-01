@@ -66,7 +66,7 @@ def main():
         x = 0  # на каждой новой строчке начинаем с нуля
 
     while True:
-        timer.tick(30)
+        timer.tick(60)
         for e in pygame.event.get():
             if e.type == QUIT:
                 raise SystemExit
