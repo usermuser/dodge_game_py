@@ -97,7 +97,6 @@ class Dino(sprite.Sprite):
         self.image = Surface((WIDTH, HEIGHT))
         self.image.fill(Color(COLOR))
         self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
-        # self.image.set_colorkey(Color(COLOR))  # делаем фон прозрачным
         self.yvel = 0  # скорость вертикального перемещения
         self.onGround = False  # На земле ли я?
         # Анимация бега
@@ -109,16 +108,16 @@ class Dino(sprite.Sprite):
         self.boltAnimRun.play()
         self.boltAnimRun.blit(self.image, (0, 0)) # По-умолчанию, стоим
 
-        # self.image.set_colorkey(Color(COLOR))  # делаем фон прозрачным
-        # self.boltAnimJump = pyganim.PygAnimation(ANIMATION_JUMP)
-        # self.boltAnimJump.play()
+        self.image.set_colorkey(Color(COLOR))  # делаем фон прозрачным
+        self.boltAnimJump = pyganim.PygAnimation(ANIMATION_JUMP)
+        self.boltAnimJump.play()
 
     def update(self, up, platforms):
         if up:
             if self.onGround:
                 self.yvel = -JUMP_POWER
-            # self.image.fill(Color(COLOR))
-            # self.boltAnimJump.blit(self.image, (0, 0))
+            self.image.fill(Color(COLOR))
+            self.boltAnimJump.blit(self.image, (0, 0))
 
         if not self.onGround:
                 self.yvel += GRAVITY
