@@ -99,8 +99,6 @@ class Dino(sprite.Sprite):
     def update(self, up, platforms):
         if up:
             if self.onGround:
-                print('dino is on the ground')
-
                 self.yvel = -JUMP_POWER
 
         if not self.onGround:
