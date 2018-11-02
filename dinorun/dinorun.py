@@ -25,8 +25,6 @@ PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
 PLATFORM_COLOR = "#FF6262"
 
-# playerImg = pygame.image.load('dino.png')
-
 def main():
     pygame.init()
 
@@ -135,7 +133,7 @@ class Platform(sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-        self.image.fill(Color(PLATFORM_COLOR))
+        self.image = image.load("assets/blocks/platform.png")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
