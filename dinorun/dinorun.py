@@ -3,11 +3,12 @@
 #https://www.cs.ucsb.edu/~pconrad/cs5nm/topics/pygame/drawing/
 import pygame
 from pygame import *
+import pyganim
 
 WIN_WIDTH = 400 #Ширина создаваемого окна
 WIN_HEIGHT = 320 # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT) # Группируем ширину и высоту в одну переменную
-BACKGROUND_COLOR = '#0639a8' # "#004400"
+BACKGROUND_COLOR = '#a4b0c4'#'#0639a8' # "#004400"
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED =   (255,0,0)
@@ -24,6 +25,11 @@ GRAVITY = 0.35 # Сила, которая будет тянуть нас вни�
 PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
 PLATFORM_COLOR = "#FF6262"
+
+# ANIMATION_DELAY = 0.1 # скорость смены кадров
+# ANIMATION_JUMP = [('assets/dino/dino_jump.png', 0.1)]
+# ANIMATION_RUN = [('assets/dino/dino_r1.png'),
+#                     ('assets/dino/dino_r2.png'),]
 
 def main():
     pygame.init()
@@ -94,6 +100,8 @@ class Dino(sprite.Sprite):
         self.yvel = 0  # скорость вертикального перемещения
         self.onGround = False  # На земле ли я?
 
+
+
     def update(self, up, platforms):
         if up:
             if self.onGround:
@@ -108,6 +116,7 @@ class Dino(sprite.Sprite):
 
         self.rect.x += self.xvel  # переносим свои положение на xvel
         self.collide(self.xvel, 0, platforms)
+
 
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
