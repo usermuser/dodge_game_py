@@ -26,10 +26,10 @@ PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
 PLATFORM_COLOR = "#FF6262"
 
-# ANIMATION_DELAY = 0.1 # скорость смены кадров
-# ANIMATION_JUMP = [('assets/dino/dino_jump.png', 0.1)]
-# ANIMATION_RUN = [('assets/dino/dino_r1.png'),
-#                     ('assets/dino/dino_r2.png'),]
+ANIMATION_DELAY = 0.1 # скорость смены кадров
+ANIMATION_JUMP = [('assets/dino/dino_jump.png', 0.1)]
+ANIMATION_RUN = [('assets/dino/dino_r1.png'),
+                ('assets/dino/dino_r2.png'),]
 
 def main():
     pygame.init()
@@ -99,13 +99,23 @@ class Dino(sprite.Sprite):
         self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
         self.yvel = 0  # скорость вертикального перемещения
         self.onGround = False  # На земле ли я?
+        # Анимация бега
+        boltAnim = []
+        for anim in ANIMATION_RUN:
+            boltAnim.append((anim,ANIMATION_DELAY))
+        self.boltAnimRun = pyganim.PygAnimation(boltAnim)
+        self.boltAnimRun.play()
 
-
+        self.image.set_colorkey(Color(COLOR))  # делаем фон прозрачным
+        self.boltAnimJump = pyganim.PygAnimation(ANIMATION_JUMP)
+        self.boltAnimJump.play()
 
     def update(self, up, platforms):
         if up:
             if self.onGround:
                 self.yvel = -JUMP_POWER
+            self.image.fill(Color(COLOR))
+            self.boltAnimJump.blit(self.image, (0, 0))
 
         if not self.onGround:
                 self.yvel += GRAVITY
