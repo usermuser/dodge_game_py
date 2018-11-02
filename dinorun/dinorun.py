@@ -5,8 +5,8 @@ import pygame
 from pygame import *
 import pyganim
 
-WIN_WIDTH = 400 #Ширина создаваемого окна
-WIN_HEIGHT = 320 # Высота
+WIN_WIDTH =  400# 800 #Ширина создаваемого окна
+WIN_HEIGHT = 320# 640 # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT) # Группируем ширину и высоту в одну переменную
 BACKGROUND_COLOR = '#a4b0c4' #'#0639a8' # "#004400"
 BLACK = (0,0,0)
@@ -15,8 +15,8 @@ RED =   (255,0,0)
 BLUE =  (0,0,255)
 GREEN = (0,255,0)
 GROUND = (WIN_HEIGHT * 0.8) + 43
-WIDTH = 22
-HEIGHT = 32
+WIDTH = 100 #22
+HEIGHT = 100 #32
 COLOR =  "#888888"
 MOVE_SPEED = 7
 JUMP_POWER = 10
@@ -99,12 +99,12 @@ class Dino(sprite.Sprite):
         self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
         self.yvel = 0  # скорость вертикального перемещения
         self.onGround = False  # На земле ли я?
+        self.image.set_colorkey(Color(COLOR))  # делаем фон прозрачным
         # Анимация бега
         boltAnim = []
         for anim in ANIMATION_RUN:
             boltAnim.append((anim,ANIMATION_DELAY))
         self.boltAnimRun = pyganim.PygAnimation(boltAnim)
-        print(boltAnim)
         self.boltAnimRun.play()
         self.boltAnimRun.blit(self.image, (0, 0)) # По-умолчанию, стоим
 
@@ -122,6 +122,8 @@ class Dino(sprite.Sprite):
         if not self.onGround:
                 self.yvel += GRAVITY
 
+        self.image.fill(Color(COLOR))
+        self.boltAnimRun.blit(self.image, (0, 0))
         self.onGround = False  # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
         self.collide(0, self.yvel, platforms)
